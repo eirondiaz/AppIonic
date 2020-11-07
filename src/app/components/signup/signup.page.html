@@ -1,0 +1,28 @@
+<ion-content fullscreen="true" class="mx-4">
+  <h4 class="display-4 text-center mt-5" style="font-size: 35px;">Sign Up</h4>
+  <form class="mx-4 mt-3">
+  <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="user.nombre" name="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="email" [(ngModel)]="user.correo" name="correo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Clave</ion-label>
+      <ion-input type="password" [(ngModel)]="user.clave" name="clave"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Repetir clave</ion-label>
+      <ion-input type="password" [(ngModel)]="reppass" name="rep"></ion-input>
+    </ion-item>
+    <ion-button class="mt-3" expand="block" fill="outline" color="success" (click)="signUp()">Sign Up</ion-button>
+  </form>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <p class="ion-text-center">Ya tienes una cuenta? <a routerLink="/signin">Inicia Sesion</a></p>
+  </ion-toolbar>
+</ion-footer>

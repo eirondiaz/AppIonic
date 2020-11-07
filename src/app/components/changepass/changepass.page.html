@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Cambiar clave</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button routerLink="/home" text="Home" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" class="mt-5">
+  <form class="mt-5" (submit)="changePass()">
+    <ion-item>
+      <ion-label position="floating">Clave actual</ion-label>
+      <ion-input type="password" [(ngModel)]="newp.clave" name="cl" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Clave nueva</ion-label>
+      <ion-input type="password" [(ngModel)]="newp.newpass" name="ncl" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Repetir clave nueva</ion-label>
+      <ion-input type="password" [(ngModel)]="repnewpass" name="newncl" required></ion-input>
+    </ion-item>
+    <ion-button class="mt-3" expand="block" color="primary" type="submit">
+      Cambiar
+    </ion-button>
+  </form>
+  <p *ngIf="noMatch" class="text-danger mt-2">Las claves no coinciden</p>
+  <p *ngIf="current" class="text-danger mt-2">Tu clave actual está incorrecta</p>
+  <div *ngIf="claveUpdated" class="alert alert-success mt-3" style="height: 30px;">
+      <p>Clave actualizada correctamente</p>
+  </div>
+</ion-content>

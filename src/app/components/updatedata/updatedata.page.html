@@ -1,0 +1,24 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Modificar datos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button routerLink="/home" text="Home" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit(updateForm.value)">
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input required formControlName="correo" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input required formControlName="nombre" type="text"></ion-input>
+    </ion-item>
+    <ion-button expand="block" color="primary" [disabled]="updateForm.invalid" type="submit">
+      Modificar
+    </ion-button>
+  </form>
+</ion-content>

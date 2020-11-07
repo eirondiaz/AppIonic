@@ -1,0 +1,23 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Home</ion-title> 
+    <ion-icon (click)="showModal()" slot="end" name="person-circle-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" routerLink="/crearsecretos">
+    <ion-fab-button>
+      <ion-icon class="ml-2" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ng-container *ngIf="secret.length === 0; else secretlist">
+    <h4 class="display-4 text-center my-5">No hay secretos</h4>
+  </ng-container>
+
+  <ng-template #secretlist>
+    <ion-list>
+      <app-secretocard [secre]="sec" (borrar)="delete($event)" *ngFor="let sec of secret"></app-secretocard>
+    </ion-list>
+  </ng-template>
+</ion-content>
