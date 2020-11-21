@@ -80,6 +80,6 @@ export class HomePage implements OnInit {
     this.secretoService.deleteSecreto(id).subscribe(
         res => this.getSecretos(),
         err => console.log(err)
-      )
+    )
   }
 }

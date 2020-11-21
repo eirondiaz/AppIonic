@@ -36,10 +36,12 @@ const routes: Routes = [
   },
   {
     path: 'updatedata',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./components/updatedata/updatedata.module').then( m => m.UpdatedataPageModule)
   },
   {
     path: 'changepass',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./components/changepass/changepass.module').then( m => m.ChangepassPageModule)
   }
 ];

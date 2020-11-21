@@ -1,0 +1,82 @@
+# Check out https://docs.codemagic.io/getting-started/building-an-ionic-app/ for more information
+# Please review and update values in curly braces
+# Remove or comment out the workflows you don't require
+
+workflows:
+    # Ionic Capacitor workflows
+    ionic-capacitor-ios-app:
+        name: Ionic Capacitor iOS App
+        environment:
+            vars:
+                XCODE_WORKSPACE: "ios/App/App.xcworkspace" # <- 'App' is the default workspace name for Capacitor projects
+                XCODE_SCHEME: "App" # <- 'App' is the default Scheme name for Capacitor projects
+            node: latest
+        scripts:
+            - npm install     
+            - npx cap sync
+            - |
+                # build iOS
+                cd platforms/ios
+                pod install
+                xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        artifacts:
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    ionic-capacitor-android-app:
+        name: Ionic Capacitor Android App
+        environment:
+            node: latest
+        scripts:
+            - npm install     
+            - npx cap sync
+            - |
+                # build Android
+                cd android
+                ./gradlew assembleDebug
+        artifacts:
+            - android/app/build/outputs/**/*.apk
+    # Ionic Cordova workflows
+    ionic-cordova-ios-app:
+        name: Ionic Cordova iOS App
+        environment:
+            vars:
+                XCODE_WORKSPACE: "{{ ADD WORKSPACE NAME HERE }}"
+                XCODE_SCHEME: "{{ ADD SCHEME NAME HERE }}"
+            node: latest
+        scripts: 
+            - |
+                # install dependencies and update to Cordova version 9
+                npm install
+                cvm install 9.0.0
+                cvm use 9.0.0
+            - |
+                # Setup Cordova iOS platform
+                ionic cordova platform remove ios --nosave
+                ionic cordova platform add ios --confirm --no-interactive --noresources
+            - |
+                # build iOS
+                cd platforms/ios
+                pod install
+                xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        artifacts:
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    ionic-cordova-android-app:
+        name: Ionic Cordova Android App
+        environment:
+            node: latest
+        scripts: 
+            - |
+                # install dependencies and update to Cordova version 9
+                npm install
+                cvm install 9.0.0
+                cvm use 9.0.0
+            - |
+                # Setup Cordova Android platform
+                ionic cordova platform remove android --nosave
+                ionic cordova platform add android --confirm --no-interactive --noresources
+            - |
+                # Build Android Cordova App
+                script: ionic cordova build android --debug --no-interactive --device
+        artifacts:
+            - platforms/android/app/build/outputs/**/*.apk
